@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Movie } from '../movie'
+import { Movie } from '../../data/movie'
 
 @Component({
   selector: 'app-movie-detail',
@@ -9,7 +9,7 @@ import { Movie } from '../movie'
 export class MovieDetailComponent implements OnInit {
 
   @Input() movie: Movie;
-  
+
   constructor() { }
 
   ngOnInit(): void {
