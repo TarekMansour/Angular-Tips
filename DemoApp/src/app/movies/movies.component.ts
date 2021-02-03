@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../../data/movie'
-import { MovieService} from '../../services/movie.service'
+import { Movie } from '../../data/movie';
+import { MovieService} from '../../services/movie.service';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-movies',
@@ -10,20 +11,21 @@ import { MovieService} from '../../services/movie.service'
 export class MoviesComponent implements OnInit {
 
  movies: Movie[];
- selectedMovie: Movie;
+ selectedMovie: Movie; 
  
+ constructor(private movieService: MovieService, private messageService: MessageService) { }
+ 
+ ngOnInit(): void {
+   this.getMovies();
+  }
+  
   onSelect(movie: Movie): void {
     this.selectedMovie = movie;
+    this.messageService.add(`Movie `)
   }
-
-  constructor(private movieSerice: MovieService) { }
-
-  ngOnInit(): void {
-    this.getMovies();
-  }
-
   getMovies(): void {
-    this.movies = this.movieSerice.getMovies();
+    //subscription to the service
+    this.movieService.getMovies()
+      .subscribe(data => this.movies = data);
   }
-
 }
